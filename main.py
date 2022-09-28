@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
+
 # Lee dos archivos de Excel e imprime un mensaje.
 contactos = pd.ExcelFile("Plantilla Excel/contactos.xlsx").parse(0)
 datosEnvio = pd.ExcelFile("Plantilla Excel/datosEnvio.xlsx").parse(0)
@@ -100,7 +101,7 @@ for i in cel:
     print(f"Creando y Abriendo chat con: {i}")
     link = (f"https://web.whatsapp.com/send?phone={i}")
     driver.get(link)
-    time.sleep(30)
+    time.sleep(50)
 
     a=a+1
     df.at[a,"Contactos"] = i
@@ -109,10 +110,10 @@ for i in cel:
         for j in mensaje:
             print("Escribiendo mensaje")
             input_xpath = '//*[@id="main"]/footer/div[1]/div/div/div[2]/div[1]/div/div[2]'
-            input_box = WebDriverWait(driver,40).until(lambda driver: driver.find_element_by_xpath("xpath",input_xpath))
-            time.sleep(10)
+            input_box = WebDriverWait(driver,40).until(lambda driver: driver.find_element("xpath",input_xpath))
+            time.sleep(30)
             input_box.send_keys(j + Keys.ENTER)
-            time.sleep(15)
+            time.sleep(30)
             print("Mensaje enviado")
             df.at[a, 'Estado'] ='Mensaje enviado satisfactoriamente'
             
@@ -120,27 +121,27 @@ for i in cel:
             for k in rutaImagen:
                 print('Enviando imagen')
                 attach_button_xpath = '//div[@title = "Adjuntar"]'
-                attach_button = WebDriverWait(driver,20).until(lambda driver: driver.find_element_by_xpath("xpath",attach_button_xpath))
-                time.sleep(2)
+                attach_button = WebDriverWait(driver,20).until(lambda driver: driver.find_element("xpath",attach_button_xpath))
+                time.sleep(20)
                 attach_button.click()
                 image_box_xpath = '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]'
-                image_box = WebDriverWait(driver,20).until(lambda driver: driver.find_element_by_xpath("xpath",image_box_xpath))
+                image_box = WebDriverWait(driver,20).until(lambda driver: driver.find_element("xpath",image_box_xpath))
                 image_box.send_keys(k)
-                time.sleep(3)
-                send_button = WebDriverWait(driver,40).until(lambda driver: driver.find_element_by_xpath("xpath",'//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div/span'))
+                time.sleep(20)
+                send_button = WebDriverWait(driver,40).until(lambda driver: driver.find_element("xpath",'//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div/span'))
                 send_button.click()
-                time.sleep(8)
+                time.sleep(20)
                 print('Imagen enviada')
 
         if rutaVideo:
             for k in rutaVideo:
                 print('Enviando video')
                 attach_button_xpath = '//div[@title = "Adjuntar"]'
-                attach_button = WebDriverWait(driver,20).until(lambda driver: driver.find_element_by_xpath("xpath",attach_button_xpath))
+                attach_button = WebDriverWait(driver,20).until(lambda driver: driver.find_element("xpath",attach_button_xpath))
                 time.sleep(4)
                 attach_button.click()
                 image_box_xpath = '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]'
-                image_box = WebDriverWait(driver,20).until(lambda driver: driver.find_element_by_xpath("xpath",image_box_xpath))
+                image_box = WebDriverWait(driver,20).until(lambda driver: driver.find_element("xpath",image_box_xpath))
                 image_box.send_keys(k)
                 time.sleep(4)
                 send_button = WebDriverWait(driver,40).until(lambda driver: driver.find_element_by_xpath("xpath",'//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div/span'))
@@ -159,7 +160,7 @@ for i in cel:
                 doc_box = WebDriverWait(driver,20).until(lambda driver: driver.find_element_by_xpath("xpath",doc_box_xpath))
                 doc_box.send_keys(k)
                 time.sleep(4)
-                send_button = WebDriverWait(driver,40).until(lambda driver: driver.find_element_by_xpath("xpath",'//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div/span'))
+                send_button = WebDriverWait(driver,40).until(lambda driver: driver.find_element("xpath",'//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div/span'))
                 send_button.click()
                 time.sleep(20)
                 print('Documento enviado')
